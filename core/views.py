@@ -20,7 +20,7 @@ from .forms import CommentForm
 class HomeView(ListView):
     template_name = 'core/home.html'
     queryset = Post.objects.all()
-    paginate_by = 2
+    paginate_by = 5
 
 
 class PostView(DetailView):
@@ -105,6 +105,38 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
     def get_queryset(self):
         return self.model.objects.filter(author=self.request.user)
 
+    def like_comment(self, **kwargs):
+        from django.http import JsonResponse, HttpResponsePermanentRedirect
+        # get the ID KWARG
+        print(kwargs)
+        comment_id = kwargs["pk"]
+        post_id = kwargs["p"]
+        print("comment id is : ", comment_id)
+        print("post id is ", post_id)
+        # comment_id = request.kwargs.get("pk", None)
+        if comment_id is not None:
+            try:
+                comment_obj = get_object_or_404(Comment, pk=comment_id)
+                post_obj = get_object_or_404(Post, pk=post_id)
+                # likes = request.POST.get("likes", None)
+                # good idea to do some more error checking here, but its getting late
+                comment_obj.likes = comment_obj.likes + 1
+                # comment_obj = get_object_or_404(Comment, pk=comment_id)
+                comment_obj.save()
+                print("likes : ", comment_obj.likes)
+                redirect_to = '/post/' + str(post_id) + '/' + post_obj.slug
+                return HttpResponsePermanentRedirect(redirect_to)
+                # return JsonResponse({
+                #     "likes": comment_obj.likes,
+                #     "comment_id": comment_obj.id
+                # })
+            except Exception as e:
+                # handle the exception
+                print("error : ", e)
+        
+        return JsonResponse({'status':'success'},status=200)
+        
+
 
 class PostDeleteView(LoginRequiredMixin, DeleteView):
     model = Post
@@ -116,3 +148,5 @@ class PostDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_queryset(self):
         return self.model.objects.filter(author=self.request.user)
+
+

@@ -13,8 +13,8 @@ from .views import signup, log_in, log_out, profile, edit_profile
 
 urlpatterns = [
     path('signup/', signup, name='signup'),
-    path('login/', log_in, name='login'),
-    path('logout/', log_out, name='logout'),
+    path('login/', log_in, name='log_in'),
+    path('logout/', log_out, name='log_out'),
     path('profile/<username>/', profile, name='profile'),
     path('edit-profile/', edit_profile, name='edit_profile'),
     path('password_reset/', PasswordResetView.as_view(

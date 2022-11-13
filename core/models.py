@@ -33,6 +33,7 @@ class Comment(models.Model):
     content = models.TextField()
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
+    likes = models.IntegerField(default=0)
 
     class Meta:
         ordering = ('-created',)

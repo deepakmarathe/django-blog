@@ -48,6 +48,8 @@
       Comment{{ comments.count|pluralize }}
       <span class="badge badge-dark ml-2">{{ comments.count }}</span>
     </div>
+
+    
     {% for comment in comments %}
     <div class="col-lg-6 offset-lg-3 mt-2">
       <div class="card p-2">
@@ -58,8 +60,21 @@
           </div>
           <div class="col-12">
             <p class="m-1 mt-3">{{ comment.content }}</p>
+           
+            <p class="col-lg-6 offset-lg-0">
+              <form action="{% url 'core:post_update' comment.id post.id %}" method=POST>
+                {% csrf_token %}
+                <button id="like-btn" class="btn btn-primary" type="submit">Like</button>
+                <span class="badge badge-dark ml-2">{{ comment.likes }}</span>
+              </form>
+              
+            </p>
+
+              
             <p class="text-right text-muted"><small>{{ comment.created }}</small></p>
+            
           </div>
+          
         </div>
       </div>
     </div>
