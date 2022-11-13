@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'core',
 ]
 
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -84,10 +85,10 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 # Parse database configuration from $DATABASE_URL
-import dj_database_url
-DATABASES = {
-    'default': dj_database_url.config(),
-}
+# import dj_database_url
+# DATABASES = {
+#     'default': dj_database_url.config(),
+# }
 
 DATABASES = {
     'default': {
