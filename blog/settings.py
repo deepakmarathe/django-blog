@@ -32,7 +32,7 @@ if os.environ.get('ENV') == 'PRODUCTION':
 else:
     DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "deepakmarathe-blogs.herokuapp.com"]
+ALLOWED_HOSTS = ["127.0.0.1", "deepakmarathe-blogs.herokuapp.com", "localhost"]
 
 
 # Application definition
@@ -83,25 +83,26 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         # 'NAME': os.environ.get('NAME'),
-#         # 'USER': os.environ.get('USER'),
-#         # 'PASSWORD': os.environ.get('PASSWORD'),
-#         'NAME': 'blogdatabase',
-#         'USER': 'postgres',
-#         'PASSWORD': 'postgres',
-#         'HOST': '127.0.0.1',
-#         'PORT': 5432
-#     }
-# }
-
 # Parse database configuration from $DATABASE_URL
 import dj_database_url
 DATABASES = {
-    'default': dj_database_url.config()
+    'default': dj_database_url.config(),
 }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': os.environ.get('NAME'),
+        # 'USER': os.environ.get('USER'),
+        # 'PASSWORD': os.environ.get('PASSWORD'),
+        'NAME': 'blogdatabase',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': '127.0.0.1',
+        'PORT': 5432
+    }
+}
+
 
 
 # Password validation
